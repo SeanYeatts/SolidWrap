@@ -2,6 +2,7 @@
 # ----------------------
 # I. Module Dependencies
 # ----------------------
+import os                                   # manipulate windows folders
 import win32com.client  as win              # COM object handling
 import pythoncom        as pycom            # used in conjunction with win32com.client
 import subprocess       as subproc          # quick process disconnect
@@ -32,17 +33,17 @@ class SolidWrap:
 
     # Pubic Methods
     # -------------
-    def connect(self, version: int=2021):
+    def connect(self, version: int=2021, visible: bool=False):
         """
         Creates a connection to the SolidWorks process.
         """
-        print(f"Establishing connection to SolidWorks client...")
+        print(f"Connecting to SolidWorks client...")
 
         # Instantiate SolidWorks application via win32com dispatch (w/o concrete CLSID)
         self.version = version
         if not self.client:                                                                     # if a client is not defined...
             self.client = win.Dispatch("SldWorks.Application.%d" % (int(self.version)-1992))    # connect to client
-            self.client.Visible = True                                                          # make application visible
+            self.client.Visible = visible                                                       # make application visible
         else:                                                                                   # ...else terminal warning
             print(f"SolidWorks client connection is already established!")
 
@@ -121,6 +122,34 @@ class SolidWrap:
         # Execute SW-API method
         model.swobj.ForceRebuild3(arg1)
 
+    def export(self, model: Model, as_type: str="PNG"):
+        """
+        Exports the target model as the prescribed file type.
+        """
+        # Format components
+        extension   = str("." + as_type)
+        desktop     = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+        destination = str(desktop + fr"\Exports")
+        file        = Filepath(f"{destination}\{model.filepath.root}{extension}")
+
+        # Make export directory
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+
+        # Execute SW-API Method: ViewZoomtofit2 - center model in viewport
+        model.swobj.ViewZoomtofit2()
+
+        print(f"Exporting: {file.name}")
+
+        # Define COM VARIANT arguments
+        arg1 = win.VARIANT(pycom.VT_DISPATCH, None)
+        arg2 = win.VARIANT(pycom.VT_BOOL, 0) 
+        arg3 = win.VARIANT(pycom.VT_BYREF | pycom.VT_I4, 0)
+        arg4 = win.VARIANT(pycom.VT_BYREF | pycom.VT_I4, 0)
+
+        # Execute SW-API method
+        model.swobj.Extension.SaveAs2(file.complete, 0, 1, arg1, "", arg2, arg3, arg4)
+
 
 class Vault:
     """
@@ -140,7 +169,7 @@ class Vault:
         """
         Creates a connection to the PDM Vault.
         """
-        print(f"Establishing connection to PDM...")
+        print(f"Connecting to PDM...")
 
         # Instantiate PDM Vault via win32com dispatch (w/o concrete CLSID)
         self.name = name

@@ -4,12 +4,19 @@ from quickpathstr import Filepath
 def execute():
     """EXAMPLE EXECUTION LOGIC"""
     
-    file = Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_02.SLDPRT")
+    files = [
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_01.SLDPRT"),
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_02.SLDPRT"),
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_03.SLDPRT")
+    ]
     
-    vault.checkout(filepath=file)
-    model = solidworks.open(filepath=file)
-    solidworks.safeclose(model=model)
-    vault.checkin(file)
+    for file in files:
+        if model := solidworks.open(filepath=file):
+            solidworks.export(model=model, as_type="png")
+            solidworks.close(model=model)
+
+    #vault.checkout(filepath=file)
+    #vault.checkin(file)
 
 # MAIN ENTRYPOINT
 def main():
