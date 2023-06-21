@@ -107,7 +107,7 @@ class SolidWrap:
         warnings    = win.VARIANT(pycom.VT_BYREF | pycom.VT_I4, 1)
 
         # Execute SW-API method
-        model.model.Save3(options, errors, warnings)
+        model.swobj.Save3(options, errors, warnings)
 
     def rebuild(self, model: Model):
         """
@@ -119,7 +119,7 @@ class SolidWrap:
         arg1 = win.VARIANT(pycom.VT_BYREF | pycom.VT_I4, False)
 
         # Execute SW-API method
-        model.model.ForceRebuild3(arg1)
+        model.swobj.ForceRebuild3(arg1)
 
 
 class Vault:
@@ -177,7 +177,7 @@ class Vault:
         else:
             print(f"File is already checked out!")  # ...else terminal warning
     
-    def checkin(self, filepath: Filepath, message: str="automated checkin"):
+    def checkin(self, filepath: Filepath, message: str="SolidWrap Automated Check In"):
         """
         Checks in model to PDM Vault.
         """
@@ -198,7 +198,7 @@ class Vault:
         Checks out a collection of models from PDM Vault.
         """
 
-    def batch_checkin(self, filepath: Filepath, message: str="automated checkin"):
+    def batch_checkin(self, filepath: Filepath, message: str="SolidWrap Automated Check In"):
         """
         Checks in a collection of models to PDM Vault.
         """
