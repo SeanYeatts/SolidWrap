@@ -1,13 +1,14 @@
+import solidwrap as sw
 from solidwrap import solidworks, vault
-from quickpathstr import Filepath
+from solidwrap import extensions
 
 def execute():
     """EXAMPLE EXECUTION LOGIC"""
     
     files = [
-        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_01.SLDPRT"),
-        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_02.SLDPRT"),
-        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_03.SLDPRT"),
+        sw.Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_01.SLDPRT"),
+        sw.Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_02.SLDPRT"),
+        sw.Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_03.SLDPRT"),
     ]
     
     # Example export workflow for generating Agile attachments
