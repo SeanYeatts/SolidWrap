@@ -82,6 +82,16 @@ Two container classes are used to simplify the concept of a SolidWorks "model." 
 ---------
 Attributes
 ``````````
-- Filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
+- filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
 - swobj ( `IModelDoc2 <https://help.solidworks.com/2020/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IModelDoc2.html>`_ ) - SolidWorks API representation of the Model
+
+``Filepath``
+-----------
+Attributes
+``````````
+- complete
+- directory
+- name
+- root
+- extension
 
