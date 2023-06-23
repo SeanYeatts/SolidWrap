@@ -12,7 +12,7 @@ Key Features
 - B
 - Full API documentation detailing the inner-workings of the module.
 
-For a complete walkthrough of the API, navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/info/API%20Reference.rst#api-reference--solidwrap->`_.
+Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/info/API%20Reference.rst#api-reference--solidwrap->`_ for a complete walkthrough of the module.
 
 Quickstart
 ----------
