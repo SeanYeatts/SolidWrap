@@ -124,23 +124,49 @@ Methods
       - name ( str ) - Literal name of the target PDM Vault
     """
 
+  # Authenticates login credentials for PDM Vault.
   def authenticate():
-    pass
+    """
+    Parameters:
+      - NONE
+    """
 
+  # Checks out model from PDM Vault.
   def checkout(filepath: Filepath):
-    pass
+    """
+    Parameters:
+      - filepath ( Filepath ) - Target file to check out.
+    """
 
+  # Checks out multiple models from the PDM Vault.
   def batch_checkout(files):
-    pass
+    """
+    Parameters:
+      - files ( Filepath ) - Target files to check out.
+    """
 
+  # Checks in model from PDM Vault.
   def checkin(filepath: Filepath):
-    pass
+    """
+    Parameters:
+      - filepath ( Filepath ) - Target file to check in.
+    """
 
+  # Checks in multiple models from the PDM Vault.
   def batch_checkin(files):
-    pass
+    """
+    Parameters:
+      - files ( Filepath ) - Target files to check in.
+    """
 
+  # Changes model's PDM state to the prescribed value, if allowed.
   def change_state(filepath: Filepath, state: str = "WIP", message: str = "SolidWrap Automated State Change"):
-    pass
+    """
+    Parameters:
+      - filepath ( Filepath ) - Target file whos state should change.
+      - state ( str ) - Literal name of the target state.
+      - message ( str ) - Message to include in the file's PDM history.
+    """
 
 Appendix
 --------
