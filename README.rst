@@ -68,7 +68,7 @@ Installation
 
 **Procedure**
 
-Extract the contents of this module to a safe location *( you can download the ZIP from this project's main GitHub page )*. Open a new terminal and navigate to the top level directory of your project. Run the following command:
+Extract the contents of this module to a safe location. Open a new terminal and navigate to the top level directory of your project. Run the following command:
 
 .. code:: sh
 
