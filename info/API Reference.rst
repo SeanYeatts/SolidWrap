@@ -59,10 +59,10 @@ Methods
       - model ( Model ) - Target Model to close.
     """
 
-  def save(model: Model)
+  def save(model: Model):
     pass
 
-  def rebuild(model: Model)
+  def rebuild(model: Model):
     pass
 
   def export(model: Model, as_type: str = "PNG")
@@ -98,6 +98,24 @@ Methods
     Parameters:
       - name ( str ) - Literal name of the target PDM Vault
     """
+
+  def authenticate():
+    pass
+
+  def checkout(filepath: Filepath):
+    pass
+
+  def batch_checkout(files):
+    pass
+
+  def checkin(filepath: Filepath):
+    pass
+
+  def batch_checkin(files):
+    pass
+
+  def change_state(filepath: Filepath, state: str = "WIP", message: str = "SolidWrap Automated State Change"):
+    pass
 
 Appendix
 --------
