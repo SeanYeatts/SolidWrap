@@ -1,7 +1,7 @@
 API Reference
 -------------
 
-*See the Appendix for an overview of the helper classes* ``Filepath`` *and* ``Model`` *that are present in many SolidWrap methods*.
+See the Appendix for an overview of the helper classes ``Filepath`` *and* ``Model`` that are present in many of the SolidWrap functions.
 
 The core of the API relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. Most interactions with the SolidWrap API should flow through these objects.
 
