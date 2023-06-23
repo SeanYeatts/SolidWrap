@@ -14,6 +14,12 @@ Key Features
 
 API Reference
 -------------
+Key ``import`` statements:
+
+.. code:: python
+
+  import solidwrap                         # main SolidWrap module
+  from solidwrap import solidworks, vault  # direct access to SolidWorks and PDM processes
 
 
 Installation
