@@ -7,16 +7,25 @@ def execute():
     files = [
         Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_01.SLDPRT"),
         Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_02.SLDPRT"),
-        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_03.SLDPRT")
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_03.SLDPRT"),
     ]
     
+    # Example export workflow for generating Agile attachments
+
+    # Clean up feature trees
+    vault.batch_checkout(files)
+    for file in files:
+        if model := solidworks.open(filepath=file):
+            solidworks.freeze(model)
+            solidworks.safeclose(model=model)
+    vault.batch_checkin(files)
+
+    # Export Agile attachments
     for file in files:
         if model := solidworks.open(filepath=file):
             solidworks.export(model=model, as_type="png")
+            solidworks.export(model=model, as_type="x_t")
             solidworks.close(model=model)
-
-    #vault.checkout(filepath=file)
-    #vault.checkin(file)
 
 # MAIN ENTRYPOINT
 def main():

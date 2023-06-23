@@ -42,7 +42,7 @@ class SolidWrap:
         # Instantiate SolidWorks application via win32com dispatch (w/o concrete CLSID)
         self.version = version
         if not self.client:                                                                     # if a client is not defined...
-            self.client = win.Dispatch("SldWorks.Application.%d" % (int(self.version)-1992))    # connect to client
+            self.client = win.Dispatch("SldWorks.Application.%d" % (int(self.version)-1992))    # connect to new client  
             self.client.Visible = visible                                                       # make application visible
         else:                                                                                   # ...else terminal warning
             print(f"SolidWorks client connection is already established!")
@@ -71,6 +71,10 @@ class SolidWrap:
 
         # Execute SW-API method
         raw_model = self.client.OpenDoc6(file, doc_type, options, config, errors, warnings)
+
+        # Execute SW-API method - activate document
+        # arg1 = win.VARIANT(pycom.VT_BYREF | pycom.VT_I4, 0)
+        # self.client.ActivateDoc3(filepath.complete, False, 2, arg1)
 
         # Return Model
         return Model(raw_model)
@@ -136,10 +140,9 @@ class SolidWrap:
         if not os.path.exists(destination):
             os.makedirs(destination)
 
-        # Execute SW-API Method: ViewZoomtofit2 - center model in viewport
-        model.swobj.ViewZoomtofit2()
-
         print(f"Exporting: {file.name}")
+
+        self.stage(model)
 
         # Define COM VARIANT arguments
         arg1 = win.VARIANT(pycom.VT_DISPATCH, None)
@@ -149,6 +152,55 @@ class SolidWrap:
 
         # Execute SW-API method
         model.swobj.Extension.SaveAs2(file.complete, 0, 1, arg1, "", arg2, arg3, arg4)
+
+    def freeze(self, model: Model):
+        """
+        Freezes the target model's feature tree.
+        """
+        print(f"Freezing: {model.filepath.name}")
+
+        # Define COM VARIANT arguments
+        setting = win.VARIANT(pycom.VT_I4, 461)
+
+        # Execute SW-API method - show freeze bar
+        self.client.SetUserPreferenceToggle(setting, True)
+
+        # Get last feature in feature tree
+        feature = model.swobj.Extension.GetLastFeatureAdded
+
+        # Define COM VARIANT arguments
+        position = win.VARIANT(pycom.VT_I4, 3)
+
+        # Execute SW-API method - move freeze bar to end of feature tree
+        model.swobj.FeatureManager.EditFreeze(position, feature.Name, True)
+
+    def declutter(self, model: Model, declutter: bool=True):
+        """
+        Hides/Shows all of the target model's sketches, reference geometry, etc.
+        """
+        print(f"Decluttering: {model.filepath.name}")
+
+        # Define COM VARIANT arguments
+        setting = win.VARIANT(pycom.VT_I4, 198) # swUserPreferenceToggle_e.swViewDisplayHideAllTypes
+        
+        # Execute SW-API Method: SetUserPreferenceToggle - hide all types (planes, sketches, etc.)
+        model.swobj.Extension.SetUserPreferenceToggle(setting, 0, declutter)
+        
+    def stage(self, model: Model):
+        """
+        Decultters viewport and orients an isometric model view.
+        """
+        print(f"Staging: {model.filepath.name}")
+        self.declutter(model=model)
+
+        # Execute SW-API Method: ShowNamedView2 - orient model to isometric view
+        model.swobj.ShowNamedView2("Isometric", 7)
+
+        # Execute SW-API Method: ViewZoomtofit2 - center model in viewport
+        model.swobj.ViewZoomtofit2()
+
+        # Execute SW-API Method: InsertScene - force background to plain white
+        model.swobj.Extension.InsertScene(fr"\scenes\01 basic scenes\11 white kitchen.p2s")
 
 
 class Vault:
@@ -197,8 +249,8 @@ class Vault:
         print(f"Check Out: {filepath.name}")
 
         # Get PDM-API objects
-        directory = vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder5
-        file = directory.GetFile(filepath.name)                         # IEdmFile5
+        directory = self.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
 
         # Execute PDM-API method
         if not file.IsLocked:                       # if file is not checked out...
@@ -206,6 +258,33 @@ class Vault:
         else:
             print(f"File is already checked out!")  # ...else terminal warning
     
+    def batch_checkout(self, files):
+        """
+        Checks out a collection of models from PDM Vault.
+        """
+        for file in files:
+            self.checkout(filepath=file)
+        
+        # ---
+        # WIP
+        # ---
+        # filepath = fr"C:\Goddard_Vault\Users\SYeatts\Scripts"
+        # filename = fr"C:\Goddard_Vault\Users\SYeatts\ScriptsTest_Part_01.sldprt"
+
+        # folder      = vault.client.GetFolderFromPath(filepath)  # IEdmFolder5
+        # folder_id   = folder.ID                                 # IEdmFolder5.ID (int?)
+
+        # for file in files:
+        #     item = folder.GetFile(file.name)            # IEdmFile5
+        #     file_id = item.ID                           # IEdmFile5.ID (int?)
+        #     utility = vault.client.CreateUtility(12)    # (22) IEdmBatchChangeState (12) IEdmBatchGet
+        #     # utility.AddFile(file_id, folder_id)
+        #     utility.AddSelectionEx(vault.client, file_id, folder_id, item.CurrentVersion)
+        
+        # utility.CreateTree(0, 2)    # @param2 (2) Egcf_Lock
+        # # utility.GetFiles()
+        # print(f"{utility.FileCount}")
+
     def checkin(self, filepath: Filepath, message: str="SolidWrap Automated Check In"):
         """
         Checks in model to PDM Vault.
@@ -213,7 +292,7 @@ class Vault:
         print(f"Check In: {filepath.name}")
 
         # Get PDM-API objects
-        directory = vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder5
+        directory = self.client.GetFolderFromPath(filepath.directory)  # IEdmFolder5
         file = directory.GetFile(filepath.name)                         # IEdmFile5
 
         # Execute PDM-API method
@@ -222,16 +301,23 @@ class Vault:
         else:
             print(f"File is already checked in!")   # ...else terminal warning
 
-    def batch_checkout(self, filepath: Filepath):
-        """
-        Checks out a collection of models from PDM Vault.
-        """
-
-    def batch_checkin(self, filepath: Filepath, message: str="SolidWrap Automated Check In"):
+    def batch_checkin(self, files, message: str="SolidWrap Automated Check In"):
         """
         Checks in a collection of models to PDM Vault.
         """
+        for file in files:
+            self.checkin(filepath=file)
 
+    # def change_state(self, filepath: Filepath, state: str="WIP", message: str="SolidWrap Automated State Change"):
+    #     """
+    #     Changes model's PDM state to prescribed value, if allowed.
+    #     """
+    #     print(f"Change State: {filepath.name}")
+
+    #     directory   = self.client.GetFolderFromPath(filepath.directory) # IEdmFolder5
+    #     folder_id   = directory.ID                                      # IEdmFolder5.ID (int?)
+    #     file        = directory.GetFile(filepath.name)                  # IEdmFile
+    #     file.ChangeState(state, folder_id, message, 0, 0)
 
 class Model:
     """
@@ -251,3 +337,41 @@ class Model:
 # ---------------------
 vault = Vault()
 solidworks = SolidWrap()
+
+
+def execute():
+    """EXAMPLE EXECUTION LOGIC"""
+    
+    files = [
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_01.SLDPRT"),
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_02.SLDPRT"),
+        Filepath(fr"C:\Goddard_Vault\Users\SYeatts\Scripts\Test_Part_03.SLDPRT"),
+    ]
+    
+    # Example export workflow for generating Agile attachments
+
+    # Clean up feature trees
+    vault.batch_checkout(files)
+    for file in files:
+        if model := solidworks.open(filepath=file):
+            solidworks.freeze(model)
+            solidworks.safeclose(model=model)
+    vault.batch_checkin(files)
+
+    # Export Agile attachments
+    for file in files:
+        if model := solidworks.open(filepath=file):
+            solidworks.export(model=model, as_type="png")
+            solidworks.export(model=model, as_type="x_t")
+            solidworks.close(model=model)
+
+# MAIN ENTRYPOINT
+def main():
+    if not solidworks.connect(version=2021):
+        vault.connect("Goddard_Vault")
+        execute()
+    input("\nPress any key to continue...")
+
+# TOP LEVEL SCRIPT ENTRYPOINT
+if __name__ == '__main__':
+    main()
