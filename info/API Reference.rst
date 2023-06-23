@@ -2,7 +2,7 @@ API Reference ( SolidWrap )
 ===========================
 Introduction
 ------------
-The `SolidWorks API <https://help.solidworks.com/2019/English/SolidWorks/sldworks/c_solidworks_api.htm?verRedirect=1>`_ is built on the Component Object Model ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) to provide an interface with SolidWorks software. It does not, however, have direct support for Python. SolidWrap leverages its own implementation of the COM pipeline to provide a Pythonic API for streamlined SolidWorks interfacing.
+The `SolidWorks API <https://help.solidworks.com/2019/English/SolidWorks/sldworks/c_solidworks_api.htm?verRedirect=1>`_ is built on the Component Object Model ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) to provide an interface with SolidWorks software. It does not, however, have direct support for Python. SolidWrap leverages the COM pipeline with its own implementation to provide a Pythonic API for streamlined SolidWorks interfacing.
 
 The core of the API relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. Most interactions with the SolidWrap API should flow through these objects.
 
