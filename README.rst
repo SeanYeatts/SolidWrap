@@ -20,7 +20,7 @@ To install the module, follow the process outlined below:
 
 **Step 1**
 
-
+Download this module's zip folder.
 
 **Step 2**
 
