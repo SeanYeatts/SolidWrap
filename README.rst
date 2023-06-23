@@ -31,6 +31,16 @@ The core of the API relies on two objects: ``solidworks`` and ``vault``. These a
 
 The ``solidworks`` object represents a connection to the SolidWorks desktop application.
 
+.. code:: python
+
+  # Establishes a connection to the SolidWorks process.
+  def connect(version: int = 2021, visible: bool = False):
+    """
+    Parameters:
+      - version ( int ) - Release year of the target SolidWorks application version (ex. 2021)
+      - visible ( bool ) - Whether or not the SolidWorks application window should be displayed.
+    """
+
 The ``vault`` object represents a connection to the PDM Vault.
 
 
