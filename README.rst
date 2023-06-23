@@ -76,4 +76,4 @@ Extract the contents of this module to a safe location *( you can download the Z
 
 
 - ``DIRECTORY_HERE`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
-- Depending on the version of SolidWrap you've selected, you may have to change ``0.0.1`` to reflect your specific version.
+- Depending on the version of SolidWrap you've chosen, you may have to change ``0.0.1`` to reflect your specific version.
