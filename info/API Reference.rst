@@ -4,7 +4,7 @@ The core of the API relies on two objects: ``solidworks`` and ``vault``. These a
 
 See the Appendix for an overview of the helper classes ``Filepath`` and ``Model`` that are present in many of the SolidWrap functions.
 
-``solidworks``
+``solidworks`` ( object )
 -------------------------
 Attributes
 ``````````
@@ -55,7 +55,7 @@ Methods
 
 
 
-``vault``
+``vault`` ( object )
 --------------------
 Attributes
 ``````````
@@ -78,20 +78,20 @@ Appendix
 --------
 Two container classes are used to simplify the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is imlpemented by the SolidWrap API to compartmentalize file references.
 
-``Model``
----------
+``Model`` ( class )
+-------------------
 Attributes
 ``````````
 - filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
 - swobj ( `IModelDoc2 <https://help.solidworks.com/2020/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IModelDoc2.html>`_ ) - SolidWorks API representation of the Model
 
-``Filepath``
------------
+``Filepath`` ( class )
+----------------------
 Attributes
 ``````````
-- complete
-- directory
-- name
-- root
-- extension
+- complete ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: C:\Users\myself\Desktop\MyFile.txt
+- directory ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: C:\Users\myself\Desktop
+- name ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: MyFile.txt
+- root ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: MyFile
+- extension ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: .txt
 
