@@ -39,6 +39,7 @@ A simple example script that opens, rebuilds, saves, and closes a .sldprt file:
     if my_model := solidworks.open(filepath=file)           # if the file opens succesfully...
       solidworks.safeclose(model=my_model)                  # ... then safeclose (rebuild, save, close) the file
 
+  # MAIN
   def main():
     if not solidworks.connect(version=2021):  # connect to SW
         vault.connect("My_Vault")             # connect to Vault
