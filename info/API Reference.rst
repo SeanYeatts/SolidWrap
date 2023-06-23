@@ -88,7 +88,7 @@ Two container classes are used to simplify the concept of a SolidWorks "document
 
 ``Model`` ( class )
 -------------------
-A container that hold Filepath, IModelDoc2, and IEdmFile5 information. [#f1]_
+A container that holds Filepath, IModelDoc2, and IEdmFile5 information. [#f1]_
 
 Attributes
 ``````````
