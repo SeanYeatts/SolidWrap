@@ -78,8 +78,8 @@ Appendix
 --------
 Two container classes are used to simplify the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is imlpemented by the SolidWrap API to compartmentalize file references.
 
-``Model``
----------
+``Model`` Container
+-------------------
 Attributes
 ``````````
 - Filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
