@@ -8,7 +8,6 @@ setup(
         'win32com',
         'quickpathstr',
     ],
-    # Add any other configuration options you need
 )
 
 """
