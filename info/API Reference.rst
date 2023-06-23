@@ -25,8 +25,8 @@ Methods
   def connect(version: int = 2021, visible: bool = False):
     """
     Parameters:
-      - version ( int ) - Release year of the target SolidWorks application version (ex. 2021)
-      - visible ( bool ) - Whether or not the SolidWorks application window should be displayed
+      - version ( int ) - Release year of the target SolidWorks application version (ex. 2021).
+      - visible ( bool ) - Whether or not the SolidWorks application window should be displayed.
     """
 
   # Terminates the SolidWorks process.
@@ -40,7 +40,7 @@ Methods
   def open(filepath: Filepath) -> Model:
     """
     Parameters:
-      - filepath ( Filepath ) - Filepath of the target model
+      - filepath ( Filepath ) - Filepath of the target model.
     Returns:
       - ( Model ) - Result
     """
@@ -60,21 +60,47 @@ Methods
     """
   # Saves the target model.
   def save(model: Model):
+    """
+    Parameters:
+      - model ( Model ) - Target Model to save.
+    """
     
   # Rebuilds the target model.
   def rebuild(model: Model):
+    """
+    Parameters:
+      - model ( Model ) - Target Model to rebuild.
+    """
 
   # Exports the target model as the prescribed file type.
-  def export(model: Model, as_type: str = "PNG")
+  def export(model: Model, as_type: str = "PNG"):
+    """
+    Parameters:
+      - model ( Model ) - Target Model to export.
+      - as_type ( str ) - Extension of the desired export file type.
+    """
 
   # Freezes the target model's feature tree.
   def freeze(model: Model):
+    """
+    Parameters:
+      - model ( Model ) - Target Model to freeze.
+    """
 
   # Hides / Shows all of the target model's sketches, reference geometry, etc.
   def declutter(model: Model, declutter: bool = True):
+    """
+    Parameters:
+      - model ( Model ) - Target Model to declutter.
+      - declutter ( bool ) - Hide / show toggle.
+    """
 
   # Declutters the viewport and orients an isometric model view.
   def stage(model: Model):
+    """
+    Parameters:
+      - model ( Model ) - Target Model to stage.
+    """
 
 
 ``vault`` ( object )
