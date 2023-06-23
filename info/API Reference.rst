@@ -67,7 +67,7 @@ A representation of the PDM Vault. All PDM interactions ( state changes, checkin
 
 Attributes
 ``````````
-- client ( `IEdmVault5 <https://help.solidworks.com/2019/english/api/epdmapi/epdm.interop.epdm~epdm.interop.epdm.iedmvault5.html?verRedirect=1>`_ ) - Top level interface for the PDM API
+- client ( `IEdmVault5 <https://help.solidworks.com/2019/english/api/epdmapi/epdm.interop.epdm~epdm.interop.epdm.iedmvault5.html?verRedirect=1>`_ ) - Top level interface for PDM-API
 - name ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Literal name of the PDM Vault
 - auth_state ( `bool <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Authorization flag indicating successful login credentials
 
@@ -84,16 +84,17 @@ Methods
 
 Appendix
 --------
-Two container classes are used to simplify the concept of a SolidWorks "document." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is implemented by the SolidWrap API to streamline file references.
+Two container classes are used to simplify the concept of a SolidWorks "document." SW-API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is implemented by SolidWrap to streamline file references.
 
 ``Model`` ( class )
 -------------------
-A container that holds Filepath, IModelDoc2, and IEdmFile5 information. [#f1]_
+A container that holds Filepath, IModelDoc2, and IEdmFile5 information.
 
-Attributes
-``````````
-- filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
-- swobj ( `IModelDoc2 <https://help.solidworks.com/2020/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IModelDoc2.html>`_ ) - SolidWorks API representation of the Model
+Members
+```````
+- filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation
+- swobj ( `IModelDoc2 <https://help.solidworks.com/2020/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IModelDoc2.html>`_ ) - SW-API representation
+- pdmobj ( `IEdmFile5 <https://help.solidworks.com/2019/English/api/epdmapi/EPDM.Interop.epdm~EPDM.Interop.epdm.IEdmFile5.html?verRedirect=1>`_ ) - PDM-API representation [#f1]_
 
 ``Filepath`` ( class )
 ----------------------
@@ -102,4 +103,4 @@ This class is a simple container that breaks up a complete filepath into its con
 .. rubric::
 -----------
 
-.. [#f1] `IEdmFile5 <https://help.solidworks.com/2019/English/api/epdmapi/EPDM.Interop.epdm~EPDM.Interop.epdm.IEdmFile5.html?verRedirect=1>`_ data is not yet captured in this release of SolidWrap.
+.. [#f1] `IEdmFile5 <https://help.solidworks.com/2019/English/api/epdmapi/EPDM.Interop.epdm~EPDM.Interop.epdm.IEdmFile5.html?verRedirect=1>`_ data is not yet captured in this release of SolidWrap. Attempting to call this class member will throw an error.
