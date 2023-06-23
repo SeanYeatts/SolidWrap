@@ -58,24 +58,23 @@ Methods
     Parameters:
       - model ( Model ) - Target Model to close.
     """
-
+  # Saves the target model.
   def save(model: Model):
-    pass
-
+    
+  # Rebuilds the target model.
   def rebuild(model: Model):
-    pass
 
+  # Exports the target model as the prescribed file type.
   def export(model: Model, as_type: str = "PNG")
-    pass
 
+  # Freezes the target model's feature tree.
   def freeze(model: Model):
-    pass
 
+  # Hides / Shows all of the target model's sketches, reference geometry, etc.
   def declutter(model: Model, declutter: bool = True):
-    pass
 
+  # Declutters the viewport and orients an isometric model view.
   def stage(model: Model):
-    pass
 
 
 ``vault`` ( object )
