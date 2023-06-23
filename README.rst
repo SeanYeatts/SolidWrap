@@ -12,7 +12,7 @@ Key Features
 - B
 - Full API documentation detailing the inner-workings of the module.
 
-For a complete walkthrough of the API, see ``info\API Reference.rst``.
+For a complete walkthrough of the API, navigate to ``info\API Reference.rst``.
 
 Quickstart
 ----------
