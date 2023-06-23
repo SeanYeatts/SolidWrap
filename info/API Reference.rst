@@ -10,8 +10,8 @@ Represents a connection to the SolidWorks desktop application.
 
 Attributes
 ``````````
-- client
-- version
+- client ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) - Direct reference to the SolidWorks application
+- version ( `int <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Release year of the target SolidWorks application version (ex. 2021)
 
 Methods
 ```````
@@ -63,6 +63,9 @@ Represents a connection to the PDM Vault.
 
 Attributes
 ``````````
+- client ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) - Direct reference to the PDM Vault
+- name ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Literal name of the PDM Vault
+- auth_state ( `bool <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Authorization flag; indicates successful login credentials
 
 Methods
 ```````
