@@ -40,6 +40,7 @@ A simple example script that opens, rebuilds, saves, and closes a .sldprt file:
     if not solidworks.connect(version=2021):  # connect to SW
         vault.connect("My_Vault")             # connect to Vault
         do_something()
+
     input("\nPress any key to continue...")
     solidworks.disconnect()                   # terminate SW connection
     vault.disconnect()                        # terminate Vault connection
