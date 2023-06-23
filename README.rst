@@ -34,13 +34,15 @@ A simple example script that opens, rebuilds, saves, and closes a .sldprt file:
 .. code:: python
 
   # Performs a simple example operation
-  def do_something():
-    pass
+  def example():
+    file = sw.Filepath(f"C:\My_Vault\Test_Part_01.sldprt")  # create a Filepath object for the target file
+    if my_model := solidworks.open(filepath=file)           # if the file opens succesfully...
+      solidworks.safeclose(model=my_model)                  # ... then safeclose (rebuild, save, close) the file
 
   def main():
     if not solidworks.connect(version=2021):  # connect to SW
         vault.connect("My_Vault")             # connect to Vault
-        do_something()
+        example()
 
     solidworks.disconnect()                   # terminate SW connection
     vault.disconnect()                        # terminate Vault connection
