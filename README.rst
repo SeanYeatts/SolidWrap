@@ -22,6 +22,13 @@ Key ``import`` statements:
   import solidwrap                         # top level SolidWrap module
   from solidwrap import solidworks, vault  # explicit access to SolidWorks and PDM processes
 
+The following methods must be called before you can utilize the SolidWrap API:
+
+.. code:: python
+
+  solidworks.connect(version=2021):  # connect to SolidWorks application
+  vault.connect("My_Vault")          # connect to 'My_Vault' PDM Vault
+
 
 Installation
 ------------
