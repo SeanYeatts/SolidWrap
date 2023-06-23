@@ -27,7 +27,7 @@ The following methods must be called before you can utilize the SolidWrap API:
 .. code:: python
 
   solidworks.connect(version=2021):  # connect to SolidWorks application
-  vault.connect("My_Vault")          # connect to 'My_Vault' PDM Vault
+  vault.connect("VAULT_NAME_HERE")   # connect to PDM Vault
 
 
 Installation
