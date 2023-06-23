@@ -8,7 +8,7 @@ and Enterprise PDM processes.
 
 Key Features
 ------------
-- Intuitive Pythonic syntax for interacting with SolidWorks models & manipulating PDM states.
+- Intuitive Pythonic syntax for interacting with SolidWorks models & PDM states.
 - Logging and report generation for profiling automation performance.
 - Full API documentation detailing the inner-workings of the module.
 
