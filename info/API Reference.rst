@@ -6,7 +6,7 @@ See the Appendix for an overview of the helper classes ( ``Filepath`` & ``Model`
 
 ``solidworks`` ( object )
 -------------------------
-This is the core object of the API. It serves as a representation of SolidWorks, and is responsible for handling all SolidWorks commands.
+The core object of the API. It serves as a representation of SolidWorks, and is responsible for handling all SolidWorks commands.
 
 Attributes
 ``````````
@@ -59,7 +59,7 @@ Methods
 
 ``vault`` ( object )
 --------------------
-This is a representation of the PDM Vault. Any PDM interactions ( state changes, checking in / out, etc. ) are handled through this object.
+A representation of the PDM Vault. Any PDM interactions ( state changes, checking in / out, etc. ) are handled through this object.
 
 Attributes
 ``````````
@@ -84,6 +84,8 @@ Two container classes are used to simplify the concept of a SolidWorks "document
 
 ``Model`` ( class )
 -------------------
+A container that hold Filepath, IModelDoc2, and IEdmFile5 information. [#f1]_
+
 Attributes
 ``````````
 - filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
@@ -93,3 +95,7 @@ Attributes
 ----------------------
 This class is a simple container that breaks up a complete filepath into its constituent components. It simplifies file references by allowing methods to pass a ``Filepath`` object instead of a long, verbose string. See the `GitHub repository <https://github.com/SeanYeatts/QuickPathStr>`_ for complete details. 
 
+.. rubric::
+-----------
+
+.. [#f1] IEdmFile5 data is not yet captured in this release of SolidWrap.
