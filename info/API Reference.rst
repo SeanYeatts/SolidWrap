@@ -80,7 +80,7 @@ Methods
 
 Appendix
 --------
-Two container classes are used to simplify the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is implemented by the SolidWrap API to streamline file references.
+Two container classes are used to simplify the concept of a SolidWorks "document." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is implemented by the SolidWrap API to streamline file references.
 
 ``Model`` ( class )
 -------------------
