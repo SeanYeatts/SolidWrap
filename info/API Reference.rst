@@ -4,7 +4,7 @@ The core of the API relies on two objects: ``solidworks`` and ``vault``. These a
 
 See the Appendix for an overview of the helper classes ``Filepath`` and ``Model`` that are present in many of the SolidWrap functions.
 
-The ``solidworks`` object
+The ``solidworks`` Object
 -------------------------
 Represents a connection to the SolidWorks desktop application.
 
@@ -57,7 +57,7 @@ Methods
 
 
 
-The ``vault`` object
+The ``vault`` Object
 --------------------
 Represents a connection to the PDM Vault.
 
