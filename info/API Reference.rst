@@ -98,4 +98,4 @@ This class is a simple container that breaks up a complete filepath into its con
 .. rubric::
 -----------
 
-.. [#f1] IEdmFile5 data is not yet captured in this release of SolidWrap.
+.. [#f1] `IEdmFile5 <https://help.solidworks.com/2019/English/api/epdmapi/EPDM.Interop.epdm~EPDM.Interop.epdm.IEdmFile5.html?verRedirect=1>`_ data is not yet captured in this release of SolidWrap.
