@@ -33,6 +33,7 @@ A simple example script that opens, rebuilds, saves, and closes a .sldprt file:
 
 .. code:: python
 
+  # Performs a simple example operation
   def do_something():
     pass
 
@@ -41,7 +42,6 @@ A simple example script that opens, rebuilds, saves, and closes a .sldprt file:
         vault.connect("My_Vault")             # connect to Vault
         do_something()
 
-    input("\nPress any key to continue...")
     solidworks.disconnect()                   # terminate SW connection
     vault.disconnect()                        # terminate Vault connection
 
