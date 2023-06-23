@@ -10,7 +10,7 @@ Key Features
 ------------
 - Intuitive Pythonic syntax for interacting with SolidWorks models & PDM states.
 - Logging and report generation for profiling automation performance.
-- Full API documentation detailing the inner-workings of the module.
+- Full API documentation detailing module components.
 
 Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/info/API%20Reference.rst#api-reference--solidwrap->`_ for a complete walkthrough of the module.
 
