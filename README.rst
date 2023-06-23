@@ -58,7 +58,7 @@ Installation
 **Prerequisites**
 
 - Python 3.8 or higher is recommended
-- pip 23.0.1 or higher is required
+- pip 23.0 or higher is recommended
 
 **Procedure**
 
