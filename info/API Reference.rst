@@ -4,7 +4,7 @@ The core of the API relies on two objects: ``solidworks`` and ``vault``. These a
 
 See the Appendix for an overview of the helper classes ``Filepath`` and ``Model`` that are present in many of the SolidWrap functions.
 
-The ``solidworks`` Object
+``solidworks``
 -------------------------
 Attributes
 ``````````
@@ -55,7 +55,7 @@ Methods
 
 
 
-The ``vault`` Object
+``vault``
 --------------------
 Attributes
 ``````````
@@ -78,8 +78,8 @@ Appendix
 --------
 Two container classes are used to simplify the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is imlpemented by the SolidWrap API to compartmentalize file references.
 
-``Model`` Container
--------------------
+``Model``
+---------
 Attributes
 ``````````
 - Filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
