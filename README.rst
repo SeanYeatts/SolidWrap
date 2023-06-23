@@ -3,8 +3,7 @@ SolidWrap
 
 *Copyright (c) 2023 Sean Yeatts. All rights reserved.*
 
-This module provides an API for streamlined interfacing with SolidWorks
-and PDM processes.
+This module implements the Component Object Model ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal>`_ ) to streamline communication with SolidWorks and PDM processes.
 
 Key Features
 ------------
