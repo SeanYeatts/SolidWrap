@@ -10,18 +10,10 @@ Key Features
 ------------
 - Intuitive Pythonic syntax for interacting with SolidWorks models & manipulating PDM states
 - B
-- C
+- Full API documentation that details the inner-workings of the module.
 
-API Reference
--------------
-
-The core of the API relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. The majority of interactions with the SolidWrap API flows through these objects.
-
-The ``solidworks`` object:
-
-
-The ``vault`` object:
-
+Quickstart
+----------
 
 Key ``import`` statements:
 
@@ -29,6 +21,18 @@ Key ``import`` statements:
 
   import solidwrap                         # top level SolidWrap module
   from solidwrap import solidworks, vault  # explicit access to SolidWorks and PDM processes
+
+
+
+API Reference
+-------------
+
+The core of the API relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. Most interactions with the SolidWrap API should flow through these objects.
+
+The ``solidworks`` object represents a connection to the SolidWorks desktop application.
+
+The ``vault`` object represents a connection to the PDM Vault.
+
 
 
 
