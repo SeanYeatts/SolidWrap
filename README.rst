@@ -41,7 +41,7 @@ The following methods must be called before you can utilize the SolidWrap API:
 
       vault.checkout(file)                                    # check out
       if my_model := solidworks.open(file)                    # if the file opens succesfully...
-          solidworks.safeclose(my_model)                      # ... then safeclose ( rebuild, save, close ) the file
+          solidworks.safeclose(my_model)                      # ... then safeclose ( rebuild, save, close )
       vault.checkin(file)                                     # check in
 
   # MAIN
