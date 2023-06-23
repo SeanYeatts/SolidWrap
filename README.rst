@@ -52,23 +52,23 @@ A simple example script that opens, rebuilds, saves, and closes a .sldprt file:
 
 Installation
 ------------
-**Python 3.8 or higher is recommended**
 
 *This module is NOT publicly available via PyPI. The contents of this module must be saved locally to a specified location.*
 
-**Step 1**
+**Prerequisites**
 
-Extract the contents of this module to a safe location ( you can download the ZIP from this project's main GitHub page ).
+- Python 3.0 is required ( 3.8 or higher is recommended )
+- pip 23.0.1 or higher is required
 
-**Step 2**
+**Procedure**
 
-Open a new terminal and navigate to the top level directory of your project. Run the following command:
+Extract the contents of this module to a safe location ( you can download the ZIP from this project's main GitHub page ). Open a new terminal and navigate to the top level directory of your project. Run the following command:
 
 .. code:: sh
 
   py -m pip install DIRECTORY_HERE\dist\solidwrap-0.0.1.tar.gz
 
-Notes:
+Note:
 
 - ``DIRECTORY_HERE`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
 - Depending on the version of SolidWrap you've selected, you may have to change ``0.0.1`` to reflect your specific version. If you're not sure what version you have, check the ``tar.gz`` file in this module's ``dist`` folder.
