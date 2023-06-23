@@ -68,7 +68,6 @@ Extract the contents of this module to a safe location ( you can download the ZI
 
   py -m pip install DIRECTORY_HERE\dist\solidwrap-0.0.1.tar.gz
 
-Note:
 
 - ``DIRECTORY_HERE`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
 - Depending on the version of SolidWrap you've selected, you may have to change ``0.0.1`` to reflect your specific version.
