@@ -10,7 +10,7 @@ Key Features
 ------------
 - Intuitive Pythonic syntax for interacting with SolidWorks models & manipulating PDM states
 - B
-- Full API documentation that details the inner-workings of the module.
+- Full API documentation detailing the inner-workings of the module.
 
 Quickstart
 ----------
