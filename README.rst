@@ -12,6 +12,10 @@ Key Features
 - B
 - C
 
+API Reference
+-------------
+
+
 Installation
 ------------
 **Python 3.8 or higher is recommended**
