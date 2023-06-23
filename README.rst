@@ -31,9 +31,7 @@ The following methods must be called before you can utilize the SolidWrap API:
   solidworks.connect(version=2021):  # connect to SolidWorks application
   vault.connect("VAULT_NAME_HERE")   # connect to PDM Vault ( case sensitive )
 
-Example
-++++++++
-This simple script opens, rebuilds, saves, and closes a .sldprt file:
+**Example** - a simple script opens, rebuilds, saves, and closes a .sldprt file:
 
 .. code:: python
 
