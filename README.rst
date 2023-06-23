@@ -30,4 +30,7 @@ Open a new terminal and navigate to the top level directory of your project. Run
 
   py -m pip install DIRECTORY\dist\solidwrap-0.0.1.tar.gz
 
-``DIRECTORY`` should be the complete filepath to the folder where you saved the SolidWrap module contents.
+Note:
+
+- ``DIRECTORY`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
+- Depending on the version of SolidWrap you've selected, you may have to change ``0.0.1`` to reflect your specific version.
