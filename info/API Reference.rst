@@ -6,8 +6,6 @@ See the Appendix for an overview of the helper classes ``Filepath`` and ``Model`
 
 The ``solidworks`` Object
 -------------------------
-Represents a connection to the SolidWorks desktop application.
-
 Attributes
 ``````````
 - client ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) - Direct reference to the SolidWorks application
@@ -59,8 +57,6 @@ Methods
 
 The ``vault`` Object
 --------------------
-Represents a connection to the PDM Vault.
-
 Attributes
 ``````````
 - client ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) - Direct reference to the PDM Vault
@@ -69,8 +65,17 @@ Attributes
 
 Methods
 ```````
+.. code:: python
 
+  # Establishes a connection to the PDM Vault.
+  def connect(name: str = "VAULT_NAME_HERE"):
+    """
+    Parameters:
+      - name ( str ) - Literal name of the target PDM Vault
+    """
 
 Appendix
 --------
-Two container classes are used to simplify the concept of a "model" within the SolidWorks API's preferred file manipulation format.
+Two container classes are used to compartmentalize the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as representations of SolidWorks models. This is cumbersome, and a less verbose solution is imlpemented by the SolidWrap API for simplification.
+
+
