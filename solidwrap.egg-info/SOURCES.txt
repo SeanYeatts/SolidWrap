@@ -5,6 +5,7 @@ solidwrap/solidwrap.py
 solidwrap.egg-info/PKG-INFO
 solidwrap.egg-info/SOURCES.txt
 solidwrap.egg-info/dependency_links.txt
+solidwrap.egg-info/requires.txt
 solidwrap.egg-info/top_level.txt
 solidwrap/extensions/__init__.py
 solidwrap/extensions/extensions.py
