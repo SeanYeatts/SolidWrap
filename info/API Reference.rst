@@ -59,6 +59,23 @@ Methods
       - model ( Model ) - Target Model to close.
     """
 
+  def save(model: Model)
+    pass
+
+  def rebuild(model: Model)
+    pass
+
+  def export(model: Model, as_type: str = "PNG")
+    pass
+
+  def freeze(model: Model):
+    pass
+
+  def declutter(model: Model, declutter: bool = True):
+    pass
+
+  def stage(model: Model):
+    pass
 
 
 ``vault`` ( object )
