@@ -87,11 +87,5 @@ Attributes
 
 ``Filepath`` ( class )
 ----------------------
-Attributes
-``````````
-- complete ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: C:\Users\myself\Desktop\MyFile.txt
-- directory ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: C:\Users\myself\Desktop
-- name ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: MyFile.txt
-- root ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: MyFile
-- extension ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_  ) - Ex: .txt
+See the GitHub repo: https://github.com/SeanYeatts/QuickPathStr
 
