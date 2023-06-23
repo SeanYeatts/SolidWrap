@@ -14,12 +14,25 @@ Key Features
 
 API Reference
 -------------
+
+The core of the API relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. The majority of interactions with the SolidWrap API flows through these objects.
+
+The ``solidworks`` object:
+
+
+The ``vault`` object:
+
+
 Key ``import`` statements:
 
 .. code:: python
 
-  import solidwrap                         # main SolidWrap module
-  from solidwrap import solidworks, vault  # direct access to SolidWorks and PDM processes
+  import solidwrap                         # top level SolidWrap module
+  from solidwrap import solidworks, vault  # explicit access to SolidWorks and PDM processes
+
+
+
+
 
 
 Installation
