@@ -14,7 +14,7 @@ The core object of the API. It serves as a representation of SolidWorks, and is 
 
 Attributes
 ``````````
-- client ( `ISldWorks <https://help.solidworks.com/2019/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isldworks.html?verRedirect=1>`_ ) - Reference to the SolidWorks application; the top level interface
+- client ( `ISldWorks <https://help.solidworks.com/2019/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isldworks.html?verRedirect=1>`_ ) - Top level interface for the SolidWorks API
 - version ( `int <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Release year of the target SolidWorks application version ( ex. 2021 )
 
 Methods
@@ -63,11 +63,11 @@ Methods
 
 ``vault`` ( object )
 --------------------
-A representation of the PDM Vault. Any PDM interactions ( state changes, checking in / out, etc. ) are handled through this object.
+A representation of the PDM Vault. All PDM interactions ( state changes, checking in / out, etc. ) are handled through this object.
 
 Attributes
 ``````````
-- client ( `IEdmVault5 <https://help.solidworks.com/2019/english/api/epdmapi/epdm.interop.epdm~epdm.interop.epdm.iedmvault5.html?verRedirect=1>`_ ) - Direct reference to the PDM Vault
+- client ( `IEdmVault5 <https://help.solidworks.com/2019/english/api/epdmapi/epdm.interop.epdm~epdm.interop.epdm.iedmvault5.html?verRedirect=1>`_ ) - Top level interface for the PDM API
 - name ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Literal name of the PDM Vault
 - auth_state ( `bool <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Authorization flag; indicates successful login credentials
 
