@@ -87,5 +87,5 @@ Attributes
 
 ``Filepath`` ( class )
 ----------------------
-See the GitHub repo: https://github.com/SeanYeatts/QuickPathStr
+This class is a simple container that breaks up a complete filepath into its constituent components. It simplifies filepath interactions by allowing methods to pass a ``Filepath`` object instead of long, verbose strings. See the GitHub repo for complete details: https://github.com/SeanYeatts/QuickPathStr
 
