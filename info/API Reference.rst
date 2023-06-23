@@ -15,7 +15,7 @@ The core object of the API. It serves as a representation of SolidWorks, and is 
 Attributes
 ``````````
 - client ( `ISldWorks <https://help.solidworks.com/2019/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isldworks.html?verRedirect=1>`_ ) - Reference to the SolidWorks application; the top level interface
-- version ( `int <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Release year of the target SolidWorks application version (ex. 2021)
+- version ( `int <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Release year of the target SolidWorks application version ( ex. 2021 )
 
 Methods
 ```````
