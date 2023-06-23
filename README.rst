@@ -38,17 +38,21 @@ The following methods must be called before you can utilize the SolidWrap API:
   # Performs a simple example operation
   def example():
       file = sw.Filepath(f"C:\My_Vault\Test_Part_01.sldprt")  # create a Filepath object for the target file
+
+      vault.checkout(filepath=file)                           # check out
       if my_model := solidworks.open(filepath=file)           # if the file opens succesfully...
           solidworks.safeclose(model=my_model)                # ... then safeclose (rebuild, save, close) the file
+      vault.checkin(filepath=file)                            # check in
 
   # MAIN
   def main():
-      if not solidworks.connect(version=2021):  # connect to SW
-          vault.connect("My_Vault")             # connect to Vault
+      if not solidworks.connect(version=2021):                # connect to SW
+          vault.connect("My_Vault")                           # connect to Vault
           example()
 
-      solidworks.disconnect()                   # terminate SW connection
-      vault.disconnect()                        # terminate Vault connection
+      # Only include these statements if you truly want to quit both processes; they are not mandatory.
+      solidworks.disconnect()                                 # terminate SW connection
+      vault.disconnect()                                      # terminate Vault connection
 
 
 
