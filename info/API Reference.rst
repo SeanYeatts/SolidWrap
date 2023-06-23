@@ -59,7 +59,7 @@ The ``vault`` Object
 --------------------
 Attributes
 ``````````
-- client ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) - Direct reference to the PDM Vault
+- client ( `IEdmVault5 <https://help.solidworks.com/2019/english/api/epdmapi/epdm.interop.epdm~epdm.interop.epdm.iedmvault5.html?verRedirect=1>`_ ) - Direct reference to the PDM Vault
 - name ( `str <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Literal name of the PDM Vault
 - auth_state ( `bool <https://www.w3schools.com/python/python_datatypes.asp>`_ ) - Authorization flag; indicates successful login credentials
 
@@ -76,6 +76,12 @@ Methods
 
 Appendix
 --------
-Two container classes are used to compartmentalize the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as representations of SolidWorks models. This is cumbersome, and a less verbose solution is imlpemented by the SolidWrap API for simplification.
+Two container classes are used to simplify the concept of a SolidWorks "model." The SolidWorks API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is imlpemented by the SolidWrap API to compartmentalize file references.
 
+``Model``
+---------
+Attributes
+``````````
+- Filepath ( `Filepath <https://github.com/SeanYeatts/QuickPathStr>`_ ) - Filepath representation of the Model
+- swobj ( `IModelDoc2 <https://help.solidworks.com/2020/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IModelDoc2.html>`_ ) - SolidWorks API representation of the Model
 
