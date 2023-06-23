@@ -6,6 +6,8 @@ See the Appendix for an overview of the helper classes ( ``Filepath`` & ``Model`
 
 ``solidworks`` ( object )
 -------------------------
+This is the core object of the API. It serves as a representation of SolidWorks, and is responsible for handling all SolidWorks commands.
+
 Attributes
 ``````````
 - client ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/the-component-object-model>`_ ) - Direct reference to the SolidWorks application
@@ -57,6 +59,8 @@ Methods
 
 ``vault`` ( object )
 --------------------
+This is a representation of the PDM Vault. Any PDM interactions ( state changes, checking in / out, etc. ) are handled through this object.
+
 Attributes
 ``````````
 - client ( `IEdmVault5 <https://help.solidworks.com/2019/english/api/epdmapi/epdm.interop.epdm~epdm.interop.epdm.iedmvault5.html?verRedirect=1>`_ ) - Direct reference to the PDM Vault
