@@ -71,7 +71,7 @@ Extract the contents of this module to a safe location. Open a new terminal and 
 
 .. code:: sh
 
-  py -m pip install DIRECTORY_HERE\dist\solidwrap-0.0.1.tar.gz
+  py -m pip install DIRECTORY_HERE\solidwrap\dist\solidwrap-0.0.1.tar.gz
 
 
 - ``DIRECTORY_HERE`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
