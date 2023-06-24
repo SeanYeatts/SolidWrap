@@ -11,7 +11,7 @@ Key Features
 - Logging and report generation for profiling automation performance.
 - Full API documentation detailing module components.
 
-Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/info/API%20Reference.rst#api-reference--solidwrap->`_ for a complete walkthrough of the module.
+Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/solidwrap/info/API%20Reference.rst>`_ for a complete walkthrough of the module.
 
 Quickstart
 ----------
