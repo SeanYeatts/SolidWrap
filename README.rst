@@ -30,7 +30,7 @@ The following methods must be called before you can utilize the SolidWrap API:
   solidworks.connect(version=2021):  # connect to SolidWorks application
   vault.connect("VAULT_NAME_HERE")   # connect to PDM Vault ( case sensitive )
 
-**Example** - a simple script opens, rebuilds, saves, and closes a '.sldprt' file:
+*Example - a simple script that opens, rebuilds, saves, and closes a '.sldprt' file:
 
 .. code:: python
 
@@ -71,7 +71,7 @@ Extract the contents of this module to a safe location. Open a new terminal and 
 
 .. code:: sh
 
-  py -m pip install DIRECTORY_HERE\solidwrap\dist\solidwrap-0.0.1.tar.gz
+  py -m pip install "DIRECTORY_HERE\solidwrap\dist\solidwrap-0.0.1.tar.gz"
 
 
 - ``DIRECTORY_HERE`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
