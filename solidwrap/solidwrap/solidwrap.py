@@ -8,23 +8,23 @@ import os                                   # manipulate windows folders
 import win32com.client  as win              # COM object handling
 import pythoncom        as pycom            # used in conjunction with win32com.client
 import subprocess       as subproc          # quick process disconnect
-from quickpathstr       import Filepath     # file nomenclature standardization
+from quickpathstr       import Filepath     # file syntax standardization
 
 
 # ------------------------
-# II. Forward Declarations - circumvents scope annoyances
+# II. Forward Declarations
 # ------------------------
-class Model:        pass
+class SolidWorks:   pass
 class Vault:        pass
-class SolidWrap:    pass
+class Model:        pass
 
 
 # ------------
 # III. Classes
 # ------------
-class SolidWrap:
+class SolidWorks:
     """
-    SolidWrap
+    SolidWorks
     ---------
     Wrapper for SolidWorks API. Represents the top-level application.
     """
@@ -337,4 +337,4 @@ class Model:
 # IV. Global Singletons
 # ---------------------
 vault = Vault()
-solidworks = SolidWrap()
+solidworks = SolidWorks()
