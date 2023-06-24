@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "SolidWrap"
-version = "0.0.2"
+name = "solidwrap"
+version = "0.0.3"
 authors = [
   { name="Sean Yeatts" },
 ]
