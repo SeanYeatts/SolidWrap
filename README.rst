@@ -16,21 +16,21 @@ Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/mai
 Quickstart
 ----------
 
-Key ``import`` statements:
+Key ``import`` statements :
 
 .. code:: python
 
   import solidwrap                         # top level module import
   from solidwrap import solidworks, vault  # explicit access to SolidWorks and PDM processes
 
-The following methods must be called before you can utilize the SolidWrap API:
+The following methods must be called before you can utilize the SolidWrap API :
 
 .. code:: python
 
   solidworks.connect(version=2021):  # connect to SolidWorks application
   vault.connect("VAULT_NAME_HERE")   # connect to PDM Vault ( case sensitive )
 
-Example - a simple script that opens, rebuilds, saves, and closes a '.sldprt' file:
+Example - a simple script that opens, rebuilds, saves, and closes a '.sldprt' file :
 
 .. code:: python
 
