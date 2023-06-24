@@ -62,7 +62,7 @@ Installation
 - Python 3.8 or higher is recommended
 - pip 23.0 or higher is recommended
 
-**Procedure - pip Installation**
+**For a pip installation**
 
 Open a new Command Prompt. Run the following command:
 
@@ -70,7 +70,7 @@ Open a new Command Prompt. Run the following command:
 
   py -m pip install solidwrap
 
-**Procedure - Local Installation**
+**For a local installation**
 
 Extract the contents of this module to a safe location. Open a new terminal and navigate to the top level directory of your project. Run the following command:
 
