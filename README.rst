@@ -57,15 +57,20 @@ Example - a simple script that opens, rebuilds, saves, and closes a '.sldprt' fi
 
 Installation
 ------------
-
-*This module is NOT publicly available via PyPI. The contents of this module must be saved locally to a specified location.*
-
 **Prerequisites**
 
 - Python 3.8 or higher is recommended
 - pip 23.0 or higher is recommended
 
-**Procedure**
+**Procedure - pip Installation**
+
+Open a new Command Prompt. Run the following command:
+
+.. code:: sh
+
+  py -m pip install solidwrap
+
+**Procedure - Local Installation**
 
 Extract the contents of this module to a safe location. Open a new terminal and navigate to the top level directory of your project. Run the following command:
 
