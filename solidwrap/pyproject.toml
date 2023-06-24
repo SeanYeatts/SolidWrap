@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "solidwrap"
+version = "0.0.3"
+authors = [
+  { name="Sean Yeatts" },
+]
+description = "This module wraps the SolidWorks and PDM APIs for a streamlined, Pythonic workflow."
+readme = "../README.rst"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/SeanYeatts/SolidWrap/tree/main"
+"Bug Tracker" = "https://github.com/SeanYeatts/SolidWrap/tree/main"
