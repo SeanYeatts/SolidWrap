@@ -9,6 +9,8 @@ The core of SolidWrap relies on two objects: ``solidworks`` and ``vault``. These
 
 See the Appendix for an overview of the helper classes ( ``Filepath`` & ``Model`` ) that are embedded in many of the SolidWrap class methods.
 
+*NOTE: Items with a 'WIP' label are in development and are not garaunteed to function appropriately.*
+
 ``solidworks`` ( object )
 -------------------------
 The core object of the API. It serves as a representation of SolidWorks, and is responsible for handling all SolidWorks commands.
