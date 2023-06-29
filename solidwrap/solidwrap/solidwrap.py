@@ -4,11 +4,14 @@ Copyright (c) 2023 Sean Yeatts. All rights reserved.
 # ----------------------
 # I. Module Dependencies
 # ----------------------
+# 3rd party imports
+from quickpathstr       import Filepath     # file syntax standardization
+
+# Standard imports
 import os                                   # manipulate windows folders
 import win32com.client  as win              # COM object handling
 import pythoncom        as pycom            # used in conjunction with win32com.client
 import subprocess       as subproc          # quick process disconnect
-from quickpathstr       import Filepath     # file syntax standardization
 
 
 # ------------------------
