@@ -15,6 +15,9 @@ import win32com.client  as win              # COM object handling
 import pythoncom        as pycom            # used in conjunction with win32com.client
 import subprocess       as subproc          # quick process disconnect
 
+# Project imports
+from .profiling        import profile       # function execution timing
+
 
 # ---------------------
 # II. Import Definition
@@ -24,7 +27,8 @@ __all__ = [
     "solidworks",
     "vault",
     "Model",
-    "Filepath"
+    "Filepath",
+    "profile"
 ]
 
 
@@ -59,6 +63,7 @@ class SolidWorks:
 
     # Pubic Methods
     # -------------
+    @profile
     def connect(self, version: int=2021, visible: bool=False):
         """
         Creates a connection to the SolidWorks process.
@@ -73,6 +78,7 @@ class SolidWorks:
         else:                                                                                   # ...else terminal warning
             print(f"SolidWorks client connection is already established!")
 
+    @profile
     def disconnect(self):
         """
         Terminates connection to the SolidWorks process.
@@ -81,6 +87,7 @@ class SolidWorks:
         subproc.call(f"Taskkill /IM SLDWORKS.exe /F")
         # No follow-up terminal message necessary; subproc.call() auto-responds
 
+    @profile
     def open(self, filepath: Filepath) -> Model:
         """
         Opens a model using the specified complete path.
@@ -105,6 +112,7 @@ class SolidWorks:
         # Return Model
         return Model(raw_model)
     
+    @profile
     def safeclose(self, model: Model):
         """
         Closes the target model ( WITH rebuild and save methods ).
@@ -117,6 +125,7 @@ class SolidWorks:
         # Execute SW-API method
         self.client.CloseDoc(model.filepath.complete)
 
+    @profile
     def close(self, model: Model):
         """
         Closes the target model ( WITHOUT rebuild and save methods ).
@@ -126,6 +135,7 @@ class SolidWorks:
         # Execute SW-API method
         self.client.CloseDoc(model.filepath.complete)
 
+    @profile
     def save(self, model: Model):
         """
         Saves the target model.
@@ -140,6 +150,7 @@ class SolidWorks:
         # Execute SW-API method
         model.swobj.Save3(options, errors, warnings)
 
+    @profile
     def rebuild(self, model: Model):
         """
         Rebuilds the target model.
@@ -152,6 +163,7 @@ class SolidWorks:
         # Execute SW-API method
         model.swobj.ForceRebuild3(arg1)
 
+    @profile
     def export(self, model: Model, as_type: str="PNG"):
         """
         Exports the target model as the prescribed file type.
@@ -159,7 +171,7 @@ class SolidWorks:
         # Format components
         extension   = str("." + as_type)
         desktop     = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
-        destination = str(desktop + fr"\Exports")
+        destination = str(desktop + fr"\SolidWrap Exports")
         file        = Filepath(f"{destination}\{model.filepath.root}{extension}")
 
         # Make export directory
@@ -179,6 +191,7 @@ class SolidWorks:
         # Execute SW-API method
         model.swobj.Extension.SaveAs2(file.complete, 0, 1, arg1, "", arg2, arg3, arg4)
 
+    @profile
     def freeze(self, model: Model):
         """
         Freezes the target model's feature tree.
@@ -200,6 +213,7 @@ class SolidWorks:
         # Execute SW-API method - move freeze bar to end of feature tree
         model.swobj.FeatureManager.EditFreeze(position, feature.Name, True)
 
+    @profile
     def declutter(self, model: Model, declutter: bool=True):
         """
         Hides/Shows all of the target model's sketches, reference geometry, etc.
@@ -212,6 +226,7 @@ class SolidWorks:
         # Execute SW-API Method: SetUserPreferenceToggle - hide all types (planes, sketches, etc.)
         model.swobj.Extension.SetUserPreferenceToggle(setting, 0, declutter)
         
+    @profile
     def stage(self, model: Model):
         """
         Decultters viewport and orients an isometric model view.
@@ -243,6 +258,7 @@ class Vault:
 
     # Public Methods
     # --------------
+    @profile
     def connect(self, name: str="Goddard_Vault"):
         """
         Creates a connection to the PDM Vault.
@@ -257,6 +273,7 @@ class Vault:
             print(f"PDM connection is already established!")
         self.authenticate()
 
+    @profile
     def authenticate(self):
         """
         Authenticates login credentials for PDM Vault.
@@ -268,6 +285,7 @@ class Vault:
             self.client.LoginAuto(self.name, 0)
             self.auth_state = True
 
+    @profile
     def checkout(self, filepath: Filepath):
         """
         Checks out model from PDM Vault.
@@ -285,6 +303,7 @@ class Vault:
             print(f"File is already checked out!")  # ...else terminal warning
     
     # WIP
+    @profile
     def batch_checkout(self, files):
         """
         Checks out a collection of models from PDM Vault.
@@ -312,6 +331,7 @@ class Vault:
         # # utility.GetFiles()
         # print(f"{utility.FileCount}")
 
+    @profile
     def checkin(self, filepath: Filepath, message: str="SolidWrap Automated Check In"):
         """
         Checks in model to PDM Vault.
@@ -329,6 +349,7 @@ class Vault:
             print(f"File is already checked in!")   # ...else terminal warning
 
     # WIP
+    @profile
     def batch_checkin(self, files, message: str="SolidWrap Automated Check In"):
         """
         Checks in a collection of models to PDM Vault.
@@ -337,6 +358,7 @@ class Vault:
             self.checkin(filepath=file)
 
     # WIP
+    @profile
     def change_state(self, filepath: Filepath, state: str="WIP", message: str="SolidWrap Automated State Change"):
         """
         Changes model's PDM state to prescribed value, if allowed.
@@ -377,5 +399,4 @@ def getLastFeature(model: Model):
     for item in range(count):           # for each feature...
         if feature.GetNext:             # if valid item...
             feature = feature.GetNext   # ...then get item
-    print(f"Last Feature: {feature.Object.Name}")
     return feature.Object               # return the feature
