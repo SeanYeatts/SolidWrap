@@ -8,7 +8,7 @@ This module wraps the SolidWorks and PDM APIs for a streamlined, Pythonic workfl
 Key Features
 ------------
 - Intuitive Pythonic syntax for interacting with SolidWorks models & PDM states.
-- Logging and report generation for profiling automation performance. <-- ( under development )
+- Process profiling for insights into automated task performance.
 - Full API documentation detailing module components.
 
 Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/solidwrap/info/API%20Reference.rst>`_ for a complete walkthrough of the module.
@@ -76,7 +76,7 @@ Extract the contents of this module to a safe location. Open a new terminal and 
 
 .. code:: sh
 
-  py -m pip install "DIRECTORY_HERE\solidwrap\dist\solidwrap-0.0.1.tar.gz"
+  py -m pip install "DIRECTORY_HERE\solidwrap\dist\solidwrap-1.0.0.tar.gz"
 
 - ``DIRECTORY_HERE`` should be replaced with the complete filepath to the folder where you saved the SolidWrap module contents.
-- Depending on the version of SolidWrap you've chosen, you may have to change ``0.0.1`` to reflect your specific version.
+- Depending on the version of SolidWrap you've chosen, you may have to change ``1.0.0`` to reflect your specific version.
