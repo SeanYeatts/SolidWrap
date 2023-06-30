@@ -6,18 +6,30 @@ Copyright (c) 2023 Sean Yeatts. All rights reserved.
 # I. Module Dependencies
 # ----------------------
 
-# 3rd Party Imports
+# 3rd party imports
 from quickpathstr       import Filepath     # syntax standardization helper
 
-# Standard Imports
+# Standard imports
 import os                                   # manipulate folders
 import win32com.client  as win              # COM object handling
 import pythoncom        as pycom            # used in conjunction with win32com.client
 import subprocess       as subproc          # quick process disconnect
 
 
+# ---------------------
+# II. Import Definition
+# ---------------------
+
+__all__ = [
+    "solidworks",
+    "vault",
+    "Model",
+    "Filepath"
+]
+
+
 # ------------
-# II. Classes
+# III. Classes
 # ------------
 
 # Helper class
@@ -179,8 +191,8 @@ class SolidWorks:
         # Execute SW-API method - show freeze bar
         self.client.SetUserPreferenceToggle(setting, True)
 
-        # Get last feature in feature tree
-        feature = model.swobj.Extension.GetLastFeatureAdded
+        # Get last feature in Feature Tree
+        feature = getLastFeature(model)
 
         # Define COM VARIANT arguments
         position = win.VARIANT(pycom.VT_I4, 3)
@@ -337,8 +349,33 @@ class Vault:
         # file.ChangeState(state, folder_id, message, 0, 0)
 
 
-# ---------------
-# III. Singletons
-# ---------------
+# --------------
+# IV. Singletons
+# --------------
+
 vault = Vault()
 solidworks = SolidWorks()
+
+
+# ------------
+# V. Functions
+# ------------
+
+def getLastFeature(model: Model):
+    """
+    Gets the last feature in the model's Feature Tree.
+    """
+    # Get Feature Manager
+    manager = model.swobj.FeatureManager
+
+    # Pre-iteration setup
+    count = manager.GetFeatureCount(True)
+    tree = manager.GetFeatureTreeRootItem2(0)
+
+    # Iterate through tree to get last item (yes, it has to be done this way)
+    feature = tree.GetFirstChild
+    for item in range(count):           # for each feature...
+        if feature.GetNext:             # if valid item...
+            feature = feature.GetNext   # ...then get item
+    print(f"Last Feature: {feature.Object.Name}")
+    return feature.Object               # return the feature
