@@ -5,11 +5,15 @@ API Reference ( SolidWrap )
 
 The SolidWorks API ( `SW-API <https://help.solidworks.com/2019/English/SolidWorks/sldworks/c_solidworks_api.htm?verRedirect=1>`_ ) and PDM API ( `PDM-API <https://help.solidworks.com/2019/English/api/epdmapi/Welcome-epdmapi.html?id=2a67aaceb6984695a5ce8a75121853f3#Pg0>`_ ) are built on the Component Object Model ( `COM <https://learn.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal>`_ ) to provide an interface with SolidWorks applications. They do not, however, have direct support for Python. SolidWrap leverages its own implementation of the COM pipeline to provide a streamlined Pythonic interface with SW-API and PDM-API.
 
+----
+
 The core of SolidWrap relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. Most interactions with SolidWrap should flow through these objects.
 
 See the Appendix for an overview of the helper classes ( ``Filepath`` & ``Model`` ) that are embedded in many of the SolidWrap class methods.
 
-*NOTE: Items with a 'WIP' label are in development and are not garaunteed to function appropriately.*
+*NOTE : Items labelled 'WIP' are in development and are not guaranteed to function as expected.*
+
+----
 
 ``solidworks`` ( object )
 -------------------------
@@ -170,6 +174,18 @@ Methods
       - state ( str ) - Literal name of the target state.
       - message ( str ) - Message to include in the file's PDM history.
     """
+
+``@profile`` ( decorator )
+--------------------------
+The ``@profile`` decorator can be applied to any function to capture its execution details, such as runtime ( seconds ). All ``solidworks`` and ``vault`` methods implement this decorator by default.
+
+To use this decorator, include the following import statement :
+
+.. code:: python
+
+  from solidwrap import profile
+
+----
 
 Appendix
 --------
