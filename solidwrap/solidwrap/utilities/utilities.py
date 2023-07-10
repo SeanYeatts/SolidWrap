@@ -33,6 +33,6 @@ def profile(func):
         value = func(*args, **kwargs)
         end_time = time.perf_counter()      # get time at end
         run_time = end_time - start_time    # calculate runtime
-        print(f"-- process {func.__name__!r} runtime: {run_time:.4f}s")
+        print(f"- {func.__name__!r} runtime: {run_time:.4f}s")
         return value
     return wrapper_profile
