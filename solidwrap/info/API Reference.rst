@@ -7,7 +7,7 @@ The SolidWorks API ( `SW-API <https://help.solidworks.com/2019/English/SolidWork
 
 ----
 
-The core of SolidWrap relies on two objects: ``solidworks`` and ``vault``. These are treated as singletons; they come pre-instanced by the module and should not be manually created by the user. Most interactions with SolidWrap should flow through these objects.
+The core of SolidWrap relies on two classes: ``SolidWorks`` and ``Vault``. These are treated as singletons; they must be instanced by the user prior to making any SolidWrap API calls. Most interactions with SolidWrap should flow through these objects.
 
 See the Appendix for an overview of the helper classes ( ``Filepath`` & ``Model`` ) that are embedded in many of the SolidWrap class methods.
 
@@ -15,9 +15,9 @@ See the Appendix for an overview of the helper classes ( ``Filepath`` & ``Model`
 
 ----
 
-``solidworks`` ( object )
--------------------------
-The core object of the API. It serves as a representation of SolidWorks, and is responsible for handling all SolidWorks commands.
+``solidworks`` ( Class )
+------------------------
+The core class of the API. It serves as a representation of SolidWorks, and is responsible for handling all SolidWorks commands.
 
 Attributes
 ``````````
@@ -110,7 +110,7 @@ Methods
     """
 
 
-``vault`` ( object )
+``vault`` ( Class )
 --------------------
 A representation of the PDM Vault. All PDM interactions ( state changes, checking in / out, etc. ) are handled through this object.
 
@@ -129,6 +129,13 @@ Methods
     """
     Parameters:
       - name ( str ) - Literal name of the target PDM Vault
+    """
+
+  # Terminates the PDM Vault connection.
+  def disconnect():
+    """
+    Parameters:
+      - NONE
     """
 
   # Authenticates login credentials for PDM Vault.
@@ -191,7 +198,7 @@ Appendix
 --------
 Two container classes are used to simplify the concept of a SolidWorks "document." SW-API tends to prefer the use of complete filepaths as direct references to documents. This is cumbersome, and a less verbose solution is implemented by SolidWrap to streamline file references.
 
-``Model`` ( class )
+``Model`` ( Class )
 -------------------
 A container that holds Filepath, IModelDoc2, and IEdmFile5 information.
 
@@ -201,7 +208,7 @@ Members
 - swobj ( `IModelDoc2 <https://help.solidworks.com/2020/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IModelDoc2.html>`_ ) - SW-API representation
 - pdmobj ( `IEdmFile5 <https://help.solidworks.com/2019/English/api/epdmapi/EPDM.Interop.epdm~EPDM.Interop.epdm.IEdmFile5.html?verRedirect=1>`_ ) - PDM-API representation [#f]_
 
-``Filepath`` ( class )
+``Filepath`` ( Class )
 ----------------------
 This class is a simple container that breaks up a complete filepath into its constituent components. It simplifies file references by allowing methods to pass ``Filepath`` objects instead of long, verbose strings. See the `GitHub repository <https://github.com/SeanYeatts/QuickPathStr>`_ for complete details. 
 

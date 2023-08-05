@@ -21,7 +21,6 @@ def singleton(cls):
     wrapper_singleton.instance = None
     return wrapper_singleton
             
-
 # Used to track execution time of designated processes
 def profile(func):
     """

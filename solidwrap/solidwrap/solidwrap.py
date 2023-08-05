@@ -6,30 +6,29 @@ Copyright (c) 2023 Sean Yeatts. All rights reserved.
 # I. Module Dependencies
 # ----------------------
 
-# 3rd party imports
-from quickpathstr       import Filepath     # syntax standardization helper
+# 3rd Part Imports
+from quickpathstr       import Filepath     # syntax helper
 
-# Standard imports
+# Standard Imports
 import os                                   # manipulate folders
 import win32com.client  as win              # COM object handling
 import pythoncom        as pycom            # used in conjunction with win32com.client
 import subprocess       as subproc          # quick process disconnect
 
-# Project imports
+# Project Imports
 from .utilities        import singleton     # singleton enforcement
 from .utilities        import profile       # process timing
 
 
-# ---------------------
-# II. Import Definition
-# ---------------------
+# ------------------
+# II. Import Symbols
+# ------------------
 
 __all__ = [
-    "solidworks",
-    "vault",
+    "SolidWorks",
+    "Vault",
     "SWDocument",
-    "Filepath",
-    "profile"
+    "Filepath"
 ]
 
 
@@ -44,8 +43,8 @@ class SWDocument:
     --------
     Convenience wrapper for SolidWorks IModelDoc2 objects.
     """
-    # Special Methods
-    # ---------------
+
+    # Core Methods
     def __init__(self, swobj):
         self.filepath   = Filepath(swobj.GetPathName)   # Filepath
         self.swobj      = swobj                         # IModelDoc2
@@ -56,35 +55,40 @@ class SWDocument:
 class SolidWorks:
     """
     SolidWorks
-    ---------
+    ----------
     Wrapper for SolidWorks API. Represents the top-level application.
     """
+
     # Attributes
-    # ----------
     client  = None
     version = None
 
     # Pubic Methods
-    # -------------
-    @profile
     def connect(self, version: int=2021, visible: bool=False):
         '''Creates a connection to the SolidWorks process.'''
         print(f"Connecting to SolidWorks client...")
-
-        # Instantiate SolidWorks application via win32com dispatch (w/o concrete CLSID)
         self.version = version
-        if not self.client:                                                                     # if a client is not defined...
-            self.client = win.Dispatch("SldWorks.Application.%d" % (int(self.version)-1992))    # connect to new client  
-            self.client.Visible = visible                                                       # make application visible
-        else:                                                                                   # ...else terminal warning
-            print(f"SolidWorks client connection is already established!")
+        # Connect to application via win32com dispatch (w/o concrete CLSID)
+        if not self.client:                                                                         # if a client is not defined...
+            try:                                                                                    # ...is there an active instance?
+                win.GetActiveObject("SldWorks.Application.%d" % (int(self.version)-1992))           # check for existing client
+            except:                                                                                 # ...otherwise create new instance
+                print(f"Establishing connection...")
+                pycom.CoInitialize()
+                self.client = win.Dispatch("SldWorks.Application.%d" % (int(self.version)-1992))    # connect to new client  
+                self.client.Visible = visible                                                       # make application visible
+                return self.client
+            else:
+                print(f"Existing connection found!")
+        else:
+            print(f"Connection already established!")
 
-    @profile
     def disconnect(self):
         '''Terminates connection to the SolidWorks process.'''
         print(f"Terminating SolidWorks process...")
-        subproc.call(f"Taskkill /IM SLDWORKS.exe /F")
-        # No follow-up terminal message necessary; subproc.call() auto-responds
+        subproc.call(f"Taskkill /IM SLDWORKS.exe /F")   # no follow-up terminal message necessary; subproc.call() auto-responds
+        pycom.CoUninitialize()
+        self.client = None
 
     def open(self, filepath: Filepath) -> SWDocument:
         '''Opens a document using the specified complete path.'''
@@ -151,7 +155,7 @@ class SolidWorks:
         # Execute SW-API method
         document.swobj.ForceRebuild3(arg1)
 
-    def export(self, document: SWDocument, as_type: str="PNG"):
+    def export(self, document: SWDocument, as_type: str="PNG", destination: str = None):
         '''Exports the target document as the prescribed file type.'''
 
         # Guard against incompatible types
@@ -160,10 +164,15 @@ class SolidWorks:
             return -1
 
         # Format components
-        extension   = str("." + as_type)
-        desktop     = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
-        destination = str(desktop + fr"\SolidWrap Exports")
-        file        = Filepath(f"{destination}\{document.filepath.root}{extension}")
+        extension = str("." + as_type)
+
+        if destination:
+            location = destination
+        else:
+            desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+            location = str(desktop + fr"\SolidWrap Exports")
+
+        file = Filepath(f"{location}\{document.filepath.root}{extension}")
 
         # Make export directory
         if not os.path.exists(destination):
@@ -236,15 +245,13 @@ class Vault:
     ---------
     Wrapper for SolidWorks PDM API. Represents PDM Vault.
     """
+
     # Attributes
-    # ----------
     client      = None  # win32com application
     name        = None  # PDM Vault name (ex. "My_Vault")
     auth_state  = False # login credential authorization flag
 
     # Public Methods
-    # --------------
-    @profile
     def connect(self, name: str="My_Vault"):
         '''Creates a connection to the PDM Vault.'''
         print(f"Connecting to PDM...")
@@ -252,12 +259,19 @@ class Vault:
         # Instantiate PDM Vault via win32com dispatch (w/o concrete CLSID)
         self.name = name
         if not self.client:                                     # if a client is not defined...
+            pycom.CoInitialize()
             self.client = win.Dispatch("ConisioLib.EdmVault")   # connect to client
         else:                                                   # ...else terminal warning
             print(f"PDM connection is already established!")
         self.authenticate()
 
-    @profile
+    def disconnect(self):
+        '''Terminates connection to the PDM Vault.'''
+        print(f"Terminating PDM Vault connection...")
+        pycom.CoUninitialize()
+        self.client     = None
+        self.auth_state = False
+
     def authenticate(self):
         '''Authenticates login credentials for PDM Vault.'''
         print(f"Authentiating PDM credentials...")
@@ -281,38 +295,18 @@ class Vault:
         else:
             print(f"File is already checked out!")  # ...else terminal warning
     
-    # WIP
+    # WIP - !!! NOT THE INTENDED DEFINITION !!!
     def batch_checkout(self, files):
         '''Checks out a collection of files from the PDM Vault.'''
         for file in files:
             self.checkout(filepath=file)
-        
-        # ---
-        # WIP
-        # ---
-        # filepath = fr"C:\Goddard_Vault\Users\SYeatts\Scripts"
-        # filename = fr"C:\Goddard_Vault\Users\SYeatts\ScriptsTest_Part_01.sldprt"
-
-        # folder      = vault.client.GetFolderFromPath(filepath)  # IEdmFolder5
-        # folder_id   = folder.ID                                 # IEdmFolder5.ID (int?)
-
-        # for file in files:
-        #     item = folder.GetFile(file.name)            # IEdmFile5
-        #     file_id = item.ID                           # IEdmFile5.ID (int?)
-        #     utility = vault.client.CreateUtility(12)    # (22) IEdmBatchChangeState (12) IEdmBatchGet
-        #     # utility.AddFile(file_id, folder_id)
-        #     utility.AddSelectionEx(vault.client, file_id, folder_id, item.CurrentVersion)
-        
-        # utility.CreateTree(0, 2)    # @param2 (2) Egcf_Lock
-        # # utility.GetFiles()
-        # print(f"{utility.FileCount}")
 
     def checkin(self, filepath: Filepath, message: str="SolidWrap Automated Check In"):
         '''Checks in a file to the PDM Vault.'''
         print(f"Check In: {filepath.name}")
 
         # Get PDM-API objects
-        directory = self.client.GetFolderFromPath(filepath.directory)  # IEdmFolder5
+        directory = self.client.GetFolderFromPath(filepath.directory)   # IEdmFolder5
         file = directory.GetFile(filepath.name)                         # IEdmFile5
 
         # Execute PDM-API method
@@ -321,13 +315,13 @@ class Vault:
         else:
             print(f"File is already checked in!")   # ...else terminal warning
 
-    # WIP
+    # WIP - !!! NOT THE INTENDED DEFINITION !!!
     def batch_checkin(self, files, message: str="SolidWrap Automated Check In"):
         '''Checks in a collection of files to the PDM Vault.'''
         for file in files:
             self.checkin(filepath=file)
 
-    # WIP
+    # WIP - !!! DOES NOTHING YET !!!
     def change_state(self, filepath: Filepath, state: str="WIP", message: str="SolidWrap Automated State Change"):
         '''Changes a file's PDM state to the prescribed value, if allowed.'''
         print(f"Change State: {filepath.name}")
@@ -365,7 +359,7 @@ class Vault:
         file = directory.GetFile(filepath.name)                        # IEdmFile
         return int(file.GetLocalFileSize2(directory.ID)/1000)
 
-    # WIP
+    # WIP - !!! NOT THE INTENDED DEFINITION !!!
     def get_pdm_state(self, filepath: Filepath) -> str:
         '''Returns PDM state of the target file.'''
         
@@ -375,17 +369,9 @@ class Vault:
         return file.CurrentState.GetFirstTransitionPosition()
 
 
-# --------------
-# IV. Singletons
-# --------------
-
-vault = Vault()
-solidworks = SolidWorks()
-
-
-# ------------
-# V. Functions
-# ------------
+# -------------
+# IV. Functions
+# -------------
 
 def get_last_feature(document: SWDocument):
     '''Gets the last feature in the document's Feature Tree.'''
