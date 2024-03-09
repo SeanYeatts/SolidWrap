@@ -78,10 +78,11 @@ Methods
     """
     
   # Rebuilds a target document.
-  def rebuild(document: SWDocument) -> None:
+  def rebuild(document: SWDocument, top_only: bool = False) -> None:
     """
     Params:
       - document ( SWDocument ) - target document
+      - top_only ( bool ) - restricts operation to top level document
     """
 
   # Exports a document using a prescribed format.
