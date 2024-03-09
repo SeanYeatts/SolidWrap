@@ -8,10 +8,10 @@ This module wraps the SolidWorks and PDM APIs for a streamlined, Pythonic workfl
 Key Features
 ------------
 - Intuitive Pythonic syntax for interacting with SolidWorks documents & PDM files.
-- Process profiling for insights into automated task performance.
+- Timestamped logging for insights into automated task performance.
 - Full API documentation detailing module components.
 
-Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/solidwrap/info/API%20Reference.rst>`_ for a complete walkthrough of the module.
+Navigate to the `API Reference <https://github.com/SeanYeatts/SolidWrap/blob/main/info/API%20Reference.rst>`_ for a complete walkthrough of the module.
 
 Quickstart
 ----------
