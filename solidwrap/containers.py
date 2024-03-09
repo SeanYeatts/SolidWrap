@@ -17,7 +17,7 @@ from enum import Enum, auto
 from typing import Any
 
 # IMPORTS - PROJECT
-from utilities import FileSize
+from solidwrap.utilities import FileSize
 
 
 # ENUMS
