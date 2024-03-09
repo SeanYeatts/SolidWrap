@@ -15,11 +15,11 @@ from pathlib import Path                    # file / folder manipulation
 from typing import Any, Dict, List, Type    # static type checking
 
 # IMPORTS - PROJECT
-from containers import SWAuthState, SWDocType, SWExportFormat, SWDocument
-from logger import log
-from utilities import AUTOMATION_MESSAGE, EXPORT_FOLDER_DEFAULT
-from utilities import SUBPROCESS_NAME, VAULT_DISPATCH_KEY
-from utilities import compute_client_key, singleton
+from solidwrap.containers import SWAuthState, SWDocType, SWExportFormat, SWDocument
+from solidwrap.logger import log
+from solidwrap.utilities import AUTOMATION_MESSAGE, EXPORT_FOLDER_DEFAULT
+from solidwrap.utilities import SUBPROCESS_NAME, VAULT_DISPATCH_KEY
+from solidwrap.utilities import compute_client_key, singleton
 
 
 # SYMBOLS
