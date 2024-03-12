@@ -69,8 +69,8 @@ class SolidWorks:
                 log.info('connection successfully established')
                 return True
         except Exception as exception:
-            print('ERROR: failed to establish connection')
-            print(f"ERROR: {exception}")
+            log.error('failed to establish connection')
+            log.error(exception)
             return False
 
     def disconnect(self, silent: bool = True) -> bool:
@@ -87,8 +87,8 @@ class SolidWorks:
             log.info('connection successfully terminated')
             return True
         except Exception as exception:
-            print('ERROR: failed to disconnect from SolidWorks client')
-            print(f"ERROR: {exception}")
+            log.error('failed to disconnect from SolidWorks client')
+            log.error(exception)
             return False
 
     # DOCUMENT MANAGEMENT METHODS
@@ -273,8 +273,8 @@ class Vault:
                 log.info('connected successfully established')
                 return self.authorize()
         except Exception as exception:
-            print('ERROR: failed to establish connection')
-            print(f"ERROR: {exception}")
+            log.error('failed to establish connection')
+            log.error(exception)
             return False
 
     def disconnect(self) -> bool:
@@ -289,8 +289,8 @@ class Vault:
             log.info('connection successfully terminated')
             return True
         except Exception as exception:
-            print('ERROR: failed to disconnect from PDM Vault client')
-            print(f"ERROR: {exception}")
+            log.error('failed to disconnect from PDM Vault client')
+            log.error(exception)
             return False
 
     def authorize(self) -> bool:
@@ -311,8 +311,8 @@ class Vault:
             log.info('credentials successfully authenticated')
             return True
         except Exception as exception:
-            print('ERROR: failed authenticate login credentials')
-            print(f"ERROR: {exception}")
+            log.error('failed authenticate login credentials')
+            log.error(exception)
             return False
 
     # FILE STATE METHODS
