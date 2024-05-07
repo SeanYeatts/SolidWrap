@@ -58,14 +58,19 @@ class SolidWorks:
         '''Creates a connection to the SolidWorks client.'''
         log.critical(f"connecting to SolidWorks client ( {self.version} )")
         client_key = compute_client_key(self.version)
-        
+
         # Attempt client dispatch
         log.info('establishing connection...')
         try:
             pycom.CoInitialize()
             if (com_object := win.Dispatch(client_key)):
                 SolidWorks.client = com_object
-                SolidWorks.client.visible = not headless
+
+                # Enforce visibility
+                SolidWorks.client.visible               = not headless
+                SolidWorks.client.UserControlBackground = headless
+                SolidWorks.client.Frame.KeepInvisible   = headless
+                
                 log.info('connection successfully established')
                 return True
         except Exception as exception:
@@ -336,7 +341,7 @@ class Vault:
 
         # Check current document state         
         if not file.IsLocked:
-            log.warning(f"file is already checked in: '{filepath.name}'")
+            log.info(f"file is already checked in: '{filepath.name}'")
             return None
         
         # Execute PDM-API method    
@@ -357,7 +362,7 @@ class Vault:
 
         # Check current document state
         if file.IsLocked:
-            log.warning(f"file is already checked out: '{filepath.name}'")
+            log.info(f"file is already checked out: '{filepath.name}'")
             return None
         
         # Execute PDM-API method
@@ -378,20 +383,51 @@ class Vault:
 
         # Check current document state
         if not file.IsLocked:
-            log.warning(f"file is not checked out: '{filepath.name}'")
+            log.info(f"file is not checked out: '{filepath.name}'")
             return None
         
         # Execute PDM-API method
         file.UndoLockFile(0)
 
     # WORKFLOW STATE METHODS
-    # WIP
-    # def change_state(self, filepath: Filepath, state: str,
-    #     comment: str = None) -> None:
-    #     log.info(f"changing workflow state: '{filepath.name}'")
-    #     # GET FILE WORKFLOW DATA
-    #     log.debug(f"current state: '{asdf}'")
-    #     log.debug(f"new state: '{ghjk}'")
+    def change_state(self, filepath: Filepath, transition: str, comment: str = None) -> None:
+        '''Changes the PDM state of a file using a provided transition.'''
+
+        # Get PDM-API objects
+        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
+        
+        # Get all possible transitions
+        index: int = 0
+        transitions: List = []
+        current = file.CurrentState
+        position = current.GetFirstTransitionPosition()
+        while not position.IsNull:
+            possibility = current.GetNextTransition(position)
+            transitions.append(possibility)
+            index += 1
+        
+        # Get next state by checking against possible transitions
+        found: bool = False
+        for test in transitions:
+            if test.Name == transition:
+                next_state = test.ToState
+                log.info(fr"transitioning file ( '{filepath.name}' ) to state: {next_state.Name}")
+                found = True
+        if not found:
+            log.warning(f"failed to execute transition: '{transition.Name}'")
+            return
+        
+        # Format a default comment
+        if comment is None:
+            comment = AUTOMATION_MESSAGE
+
+        # Define COM VARIANT args
+        arg1 = win.VARIANT(pycom.VT_I4, int(directory.ID))
+        arg2 = win.VARIANT(pycom.VT_BSTR, comment)
+
+        # SolidWorks API call
+        file.ChangeState(next_state, arg1.value, arg2.value, 0)
 
     # DATA RETRIEVAL METHODS
     def get_revision(self, filepath: Filepath) -> str:
@@ -399,9 +435,35 @@ class Vault:
         log.debug('release revision')
 
         # Get PDM-API objects
-        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder5
-        file = directory.GetFile(filepath.name)                         # IEdmFile5
+        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
         return file.CurrentRevision
+    
+    def get_state(self, filepath: Filepath) -> str:
+        '''Gets a file's current PDM state.'''
+        
+        # Get PDM-API objects
+        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
+        return file.CurrentState.Name
+
+    def get_transitions(self, filepath: Filepath) -> List[str]:
+        '''Gets all of the possible state transitions for a file's current
+        PDM state.'''
+        
+        # Get PDM-API objects
+        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
+        
+        index: int = 0
+        transitions: List = []
+        current = file.CurrentState
+        position = current.GetFirstTransitionPosition()
+        while not position.IsNull:
+            transition = current.GetNextTransition(position)
+            transitions.append(transition.Name)
+            index += 1
+        return transitions
 
 
 # FUNCTIONS
@@ -436,7 +498,7 @@ def prepare_export(document: SWDocument, target_format: SWExportFormat,
 
 # OBJECTS
 # Which document types are compatible with which export formats?
-export_matrix: Dict[SWDocType, List[Type[SWExportFormat]]] = {
+export_matrix: Dict[SWDocType, List[SWExportFormat]] = {
     SWDocType.PART: [
         SWExportFormat.IMAGE,
         SWExportFormat.PARASOLID,
