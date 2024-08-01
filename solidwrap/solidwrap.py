@@ -415,7 +415,7 @@ class Vault:
                 log.info(fr"transitioning file ( '{filepath.name}' ) to state: {next_state.Name}")
                 found = True
         if not found:
-            log.warning(f"failed to execute transition: '{transition.Name}'")
+            log.warning(f"failed to execute transition: '{transition}'")
             return
         
         # Format a default comment
@@ -465,6 +465,31 @@ class Vault:
             index += 1
         return transitions
 
+    def get_checkout_user(self, filepath: Filepath) -> Any:
+        
+        # Get PDM-API objects
+        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
+        if file.IsLocked:
+            return file.LockedByUser.Name
+
+    def get_configurations(self, filepath: Filepath) -> List[str]:
+
+        # Get PDM-API objects
+        directory = Vault.client.GetFolderFromPath(filepath.directory)  # IEdmFolder
+        file = directory.GetFile(filepath.name)                         # IEdmFile
+        configs = file.GetConfigurations()
+
+        index: int = 0
+        results: List = []
+        position = configs.GetHeadPosition()
+        while not position.IsNull:
+            value = configs.GetNext(position)
+            results.append(value)
+            index += 1
+        if '@' in results:
+            results.remove('@')
+        return results
 
 # FUNCTIONS
 def prepare_export(document: SWDocument, target_format: SWExportFormat,
