@@ -154,7 +154,7 @@ class SolidWorks:
 
     def rebuild(self, document: SWDocument, top_only: bool = False) -> None:
         '''Rebuilds a target document.'''
-        log.info(f"rebuilding document: '{document.filepath.name}'")
+        log.info(f"rebuilding document: '{document.source.name}'")
         
         # Define COM VARIANT args
         top_only = win.VARIANT(pycom.VT_BYREF | pycom.VT_I4, top_only)
@@ -213,7 +213,7 @@ class SolidWorks:
 
     def freeze(self, document: SWDocument) -> None:
         '''Freezes a target document's Feature Tree.'''
-        log.info(f"freezing document: '{document.filepath.name}'")
+        log.info(f"freezing document: '{document.source.name}'")
 
         # Define COM VARIANT args
         setting     = win.VARIANT(pycom.VT_I4,  461)
@@ -237,7 +237,7 @@ class SolidWorks:
         
         # Gather necessary components of the Feature Tree
         manager = document.swobj.FeatureManager     # get Feature Manager
-        tree = manager.GetFeatureTreeRoomItem2(0)   # get Feature Tree root
+        tree = manager.GetFeatureTreeRootItem2(0)   # get Feature Tree root
         count = manager.GetFeatureCount(True)       # get # of features
 
         # Iterate over tree to find last item ( yes, this is the only way... )
